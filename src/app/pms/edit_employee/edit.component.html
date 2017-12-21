@@ -1,0 +1,102 @@
+<div class="panel panel-default" *ngIf="employee">
+    <div class="panel-heading">Employee Entry Form : You can add an employee's detail information into this EMS Apps.</div>
+    <div class="panel-body">
+        <form #empEditForm="ngForm" class="form-horizontal" (submit)="save()">
+            <div class="form-group">
+                <label for="id" class="col-sm-2 control-label">Employee's ID : </label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" [(ngModel)]="employee.id" name="id" [disabled]="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="emp_name" class="col-sm-2 control-label">Employee's Full Name : </label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" [(ngModel)]="employee.name" name="name" [disabled]="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="col-sm-2 control-label">Employee's E-mail ID: </label>
+                <div class="col-sm-5">
+                    <input type="email" id="email" class="form-control" [(ngModel)]="employee.email" name="email" [disabled]="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="date_of_joining" class="col-sm-2 control-label">Date of Joining: </label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" [(ngModel)]="employee.date_of_joining" name="date_of_joining" [disabled]="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="fixed_ctc" class="col-sm-2 control-label">Fixed CTC : </label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" pattern="[0-9]+" [(ngModel)]="employee.fixed_ctc" name="fixed_ctc" #fixctc="ngModel">
+                </div>
+                <div *ngIf="fixctc.errors && (fixctc.dirty || fixctc.touched)" class="alert alert-danger">
+                    <div [hidden]="!fixctc.errors.pattern">
+                        Must contain only numbers!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="var_ctc" class="col-sm-2 control-label">Variable CTC : </label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" pattern="[0-9]+" [(ngModel)]="employee.var_ctc" name="var_ctc" #varctc="ngModel">
+                </div>
+                <div *ngIf="varctc.errors && (varctc.dirty || varctc.touched)" class="alert alert-danger">
+                    <div [hidden]="!varctc.errors.pattern">
+                        Must contain only numbers!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group dropdown" *ngIf="employee.var_ctc">
+                <label for="var_ctc_freq" class="col-sm-2 control-label">Variable CTC Frequency : </label>
+                <div class="col-sm-5">
+                    <select name="select" class="form-control button-pos" id="select" [(ngModel)]="employee.var_ctc_frequency">
+                        <option *ngFor="let freq of selectVarFreq">{{freq}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="joining_bonus" class="col-sm-2 control-label">Joining Bonus: </label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" pattern="[0-9]+" [(ngModel)]="employee.joining_bonus" name="joining_bonus" #bonus="ngModel">
+                </div>
+                <div *ngIf="bonus.errors && (bonus.dirty || bonus.touched)" class="alert alert-danger">
+                    <div [hidden]="!bonus.errors.pattern">
+                        Must contain only numbers!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="relocation_charges" class="col-sm-2 control-label">Relocation Charges: </label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" pattern="[0-9]+" [(ngModel)]="employee.relocation_charges" name="relocation_charges" #relcharge="ngModel">
+                </div>
+                <div *ngIf="relcharge.errors && (relcharge.dirty || relcharge.touched)" class="alert alert-danger">
+                    <div [hidden]="!relcharge.errors.pattern">
+                        Must contain only numbers!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="buyout" class="col-sm-2 control-label">Buyout: </label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" pattern="[0-9]+" [(ngModel)]="employee.buyout" name="buyout" #buyout="ngModel">
+                </div>
+                <div *ngIf="buyout.errors && (buyout.dirty || buyout.touched)" class="alert alert-danger">
+                    <div [hidden]="!buyout.errors.pattern">
+                        Must contain only numbers!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-8">
+                    <button type="submit" [disabled]="!empEditForm.form.valid" class="btn btn-success">Update</button>
+                    <a class="btn btn-info" (click)="goBack()">Cancel</a>
+                </div>
+
+            </div>
+        </form>
+
+    </div>
+</div>

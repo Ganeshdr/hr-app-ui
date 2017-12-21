@@ -1,0 +1,133 @@
+<div class="panel panel-default">
+    <div class="panel-heading">Employee Entry Form : You can add an employee's detail information into this PMS Apps.</div>
+    <div class="panel-body">
+        <form #empForm="ngForm" class="form-horizontal" (submit)="add(empForm.value, employee)">
+            <div class="form-group">
+                <label for="emp_id" class="col-sm-2 control-label">Employee's ID : </label>
+                <div class="col-sm-5">
+                    <input type="text" id="empid" class="form-control" pattern="[0-9]+" [(ngModel)]="employee.id" name="id" required #empid="ngModel">
+                </div>
+                <div *ngIf="empid.errors && (empid.dirty || empid.touched)" class="alert alert-danger">
+                    <div [hidden]="!empid.errors.required">
+                        Employee ID is required!
+                    </div>
+                    <div [hidden]="!empid.errors.pattern">
+                        Must contain only numbers!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="emp_name" class="col-sm-2 control-label">Employee's Full Name : </label>
+                <div class="col-sm-5">
+                    <input type="text" id="name" class="form-control" [(ngModel)]="employee.name" name="name" required minlength="5" maxlength="60" #name="ngModel">
+                </div>
+                <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
+                    <div [hidden]="!name.errors.required">
+                        Employee name is required!
+                    </div>
+                    <div [hidden]="!name.errors.minlength">
+                        name must be at least 5 characters long.
+                    </div>
+                    <div [hidden]="!name.errors.maxlength">
+                        name cannot be more than 60 characters long.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="col-sm-2 control-label">Employee's E-mail ID: </label>
+                <div class="col-sm-5">
+                    <input type="email" id="email" class="form-control" [(ngModel)]="employee.email" name="email" required pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" #email="ngModel">
+                </div>
+                <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+                    <div [hidden]="!email.errors.required">
+                        Employee Email-ID is required!
+                    </div>
+                    <div [hidden]="!email.errors.pattern">
+                        Must be a valid Email-ID!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="date_of_joining" class="col-sm-2 control-label">Date of Joining: </label>
+                <div class="col-sm-5">
+                    <input type="date" class="form-control" [(ngModel)]="employee.date_of_joining" name="date_of_joining" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="fixed_ctc" class="col-sm-2 control-label">Fixed CTC : </label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" pattern="[0-9]+" [(ngModel)]="employee.fixed_ctc" name="fixed_ctc" required #fixctc="ngModel">
+                </div>
+                <div *ngIf="fixctc.errors && (fixctc.dirty || fixctc.touched)" class="alert alert-danger">
+                    <div [hidden]="!fixctc.errors.required">
+                        Please enter Fixed CTC!
+                    </div>
+                    <div [hidden]="!fixctc.errors.pattern">
+                        Must contain only numbers!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="var_ctc" class="col-sm-2 control-label">Variable CTC : </label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" pattern="[0-9]+" [(ngModel)]="employee.var_ctc" name="var_ctc" #varctc="ngModel">
+                </div>
+                <div *ngIf="varctc.errors && (varctc.dirty || varctc.touched)" class="alert alert-danger">
+                    <div [hidden]="!varctc.errors.pattern">
+                        Must contain only numbers!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group dropdown" *ngIf="employee.var_ctc">
+                <label for="var_ctc_freq" class="col-sm-2 control-label">Variable CTC Frequency : </label>
+                <div class="col-sm-5">
+                    <select name="select" class="form-control button-pos" id="select" [(ngModel)]="employee.var_ctc_frequency">
+                       <option *ngFor="let freq of selectVarFreq">{{freq}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="joining_bonus" class="col-sm-2 control-label">Joining Bonus: </label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" pattern="[0-9]+" [(ngModel)]="employee.joining_bonus" name="joining_bonus" #bonus="ngModel">
+                </div>
+                <div *ngIf="bonus.errors && (bonus.dirty || bonus.touched)" class="alert alert-danger">
+                    <div [hidden]="!bonus.errors.pattern">
+                        Must contain only numbers!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="relocation_charges" class="col-sm-2 control-label">Relocation Charges: </label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" pattern="[0-9]+" [(ngModel)]="employee.relocation_charges" name="relocation_charges" #relcharge="ngModel">
+                </div>
+                <div *ngIf="relcharge.errors && (relcharge.dirty || relcharge.touched)" class="alert alert-danger">
+                    <div [hidden]="!relcharge.errors.pattern">
+                        Must contain only numbers!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="buyout" class="col-sm-2 control-label">Buyout: </label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" pattern="[0-9]+" [(ngModel)]="employee.buyout" name="buyout" #buyout="ngModel">
+                </div>
+                <div *ngIf="buyout.errors && (buyout.dirty || buyout.touched)" class="alert alert-danger">
+                    <div [hidden]="!buyout.errors.pattern">
+                        Must contain only numbers!
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-8">
+                    <button type="submit" [disabled]="!empForm.form.valid" class="btn btn-success">Save</button>
+                    <a class="btn btn-info" (click)="goBack()">Cancel</a>
+                </div>
+
+            </div>
+        </form>
+
+    </div>
+</div>
